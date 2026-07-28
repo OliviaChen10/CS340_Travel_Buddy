@@ -1,0 +1,27 @@
+{
+  "name": "cs340_travel_buddy",
+  "version": "1.0.0",
+  "description": "Have you ever wanted to organize all your travel details in one place instead of writing out long word documents or making tedious spreadsheets? Plan ahead for your trips, or look back on previous ones with a single click of your finger? Keep track of where you’ve been—which states, countries, continents, especially if you’re a frequent traveler? Get ready for Travel Buddy, your personal travel site created to track and digitally scrapbook your trips!",
+  "main": "app.js",
+  "scripts": {
+    "development": "npx nodemon app.js",
+    "production": "npx forever start app.js",
+    "stop_production": "npx forever stop app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OliviaChen10/CS340_Travel_Buddy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OliviaChen10/CS340_Travel_Buddy/issues"
+  },
+  "homepage": "https://github.com/OliviaChen10/CS340_Travel_Buddy#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "forever": "^4.0.3",
+    "mysql2": "^3.23.2",
+    "nodemon": "^3.1.14"
+  }
+}

@@ -1,1 +1,7 @@
-# CS340_Travel_Buddy
+## What is Travel Buddy?
+
+Have you ever wanted to organize all your travel details in one place instead of writing out long word documents or making tedious spreadsheets? Plan ahead for your trips, or look back on previous ones with a single click of your finger? Keep track of where you’ve been—which states, countries, continents, especially if you’re a frequent traveler? Get ready for Travel Buddy, your personal travel site created to track and digitally scrapbook your trips!
+
+Our aim with Travel Buddy is to create a website to help traveler aficionados track, plan, and record their trips—whether it be across the world or simply local. Many people average 2-5 trips a year, with others even reaching up to 10. The estimated registered users will be within 10,000-50,000 and will support 100 countries to add to a traveler’s trips. A database management system will allow users to record multiple trips to various countries, keep a detailed log of their transportation legs and itineraries for each trip, documenting individual activities or excursions. By doing so, users will be able to look back on all their previous trips and reminisce over all their amazing experiences, or look ahead to planning their next one. 
+
+Plans to expand the website include increasing supported countries, increasing site bandwidth to accommodate growing userbase, and adding more interactive features including: adding friends to your trips (travel-buddies!), sharing itineraries with co-travelers, posting photo-worthy moments with friends and family, and sharing food/entertainment/activity recommendations with other users around the world. 

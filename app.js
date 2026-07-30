@@ -22,9 +22,17 @@ app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files.
 // ########## ROUTE HANDLERS
 
 // READ ROUTES
-app.get('/', (req, res) => {
-    res.send('Hello, world!');
+
+app.get('/', async function (req, res) {
+    try {
+        res.render('home'); // Render the home.hbs file
+    } catch (error) {
+        console.error('Error rendering page:', error);
+        // Send a generic error message to the browser
+        res.status(500).send('An error occurred while rendering the page.');
+    }
 });
+
 
 // ########################################
 // ########## LISTENER

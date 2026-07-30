@@ -1,51 +1,38 @@
-/*
-    SETUP
-*/
+// ########################################
+// ########## SETUP
 
 // Express
-const express = require('express');  // We are using the express library for the web server
-const app = express();               // We need to instantiate an express object to interact with the server in our code
-const PORT = 27072;     // Set a port number
+const express = require('express');
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-// Database 
-const db = require('./db-connector');
+const PORT = 27072;
 
-/*
-    ROUTES
-*/
+// Database
+const db = require('./database/db-connector');
 
-app.get('/', async function (req, res) {
-    try {
-        
-        // Define our queries
-        const query1 = 'DROP TABLE IF EXISTS diagnostic;';
-        const query2 = 'CREATE TABLE diagnostic(id INT PRIMARY KEY AUTO_INCREMENT, text VARCHAR(255) NOT NULL);';
-        const query3 = 'INSERT INTO diagnostic (text) VALUES ("MySQL and Node is working for myONID!");'; // Replace with your ONID
-        const query4 = 'SELECT * FROM diagnostic;';
-        
-        // Execute each query synchronously (await).
-        // We want each query to finish before the next one starts.
-        await db.query(query1);
-        await db.query(query2);
-        await db.query(query3);
-        const [rows] = await db.query(query4); // Store the results
-        
-        // Send the results to the browser
-        const base = "<h1>MySQL Results:</h1>";
-        res.send(base + JSON.stringify(rows));
+// Handlebars
+const { engine } = require('express-handlebars'); // Import express-handlebars engine
+app.engine('.hbs', engine({ extname: '.hbs' })); // Create instance of handlebars
+app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files.
 
-    } catch (error) {
-        console.error("Error executing queries:", error);
+// ########################################
+// ########## ROUTE HANDLERS
 
-        // Send a generic error message to the browser
-        res.status(500).send("An error occurred while executing the database queries.");
-    }
+// READ ROUTES
+app.get('/', (req, res) => {
+    res.send('Hello, world!');
 });
 
-/*
-    LISTENER
-*/
+// ########################################
+// ########## LISTENER
 
-app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
-    console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
+app.listen(PORT, function () {
+    console.log(
+        'Express started on http://localhost:' +
+            PORT +
+            '; press Ctrl-C to terminate.'
+    );
 });

@@ -1,0 +1,115 @@
+<div class="page">
+    <h1>Segments</h1>
+    <p class="page-subtitle">Browse transportation legs and manage travel segments.</p>
+
+    <div class="card">
+        <h2>Browse Segments</h2>
+        <table>
+            <thead>
+                <tr>
+                    {{#each segments.[0]}}
+                    <th>{{@key}}</th>
+                    {{/each}}
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each segments}}
+                <tr>
+                    <td>{{this.segmentID}}</td>
+                    <td>{{this.typeID}}</td>
+                    <td>{{this.departureLocation}}</td>
+                    <td>{{this.departureTime}}</td>
+                    <td>{{this.arrivalLocation}}</td>
+                    <td>{{this.arrivalTime}}</td>
+                    <td>{{this.tripID}}</td>
+                    <form id='delete_segment_form'>
+                        <input type='hidden' name='delete_segment_id' value='{{this.segmentID}}' />
+                        <td><button type='submit'>Delete</button></td>
+                    </form>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-row">
+        <div class="card">
+            <h2>Create a Segment</h2>
+            <form class='cuForm' id='create_segment_form'>
+                <label for='create_segment_type'>Travel Type: </label>
+                <select name='create_segment_type' id='create_segment_type' required>
+                    <option value='' disabled selected>Select a Type</option>
+                    {{#each travelTypes}}
+                    <option value='{{this.typeID}}'>{{this.travelName}}</option>
+                    {{/each}}
+                </select>
+
+                <label for='create_segment_departure_loc'>Departure Location: </label>
+                <input type='text' name='create_segment_departure_loc' id='create_segment_departure_loc' required />
+
+                <label for='create_segment_departure_time'>Departure Time: </label>
+                <input type='datetime-local' name='create_segment_departure_time' id='create_segment_departure_time' required />
+
+                <label for='create_segment_arrival_loc'>Arrival Location: </label>
+                <input type='text' name='create_segment_arrival_loc' id='create_segment_arrival_loc' required />
+
+                <label for='create_segment_arrival_time'>Arrival Time: </label>
+                <input type='datetime-local' name='create_segment_arrival_time' id='create_segment_arrival_time' required />
+
+                <label for='create_segment_trip'>Trip: </label>
+                <select name='create_segment_trip' id='create_segment_trip' required>
+                    <option value='' disabled selected>Select a Trip</option>
+                    {{#each trips}}
+                    <option value='{{this.tripID}}'>Trip {{this.tripID}}</option>
+                    {{/each}}
+                </select>
+
+                <input type='submit' />
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Update a Segment</h2>
+            <form class='cuForm' id='update_segment_form'>
+                <label for='update_segment_id'>Segment to Update: </label>
+                <select name='update_segment_id' id='update_segment_id' required>
+                    <option value='' disabled selected>Select a Segment</option>
+                    {{#each segments}}
+                    <option value='{{this.segmentID}}'>Segment {{this.segmentID}}</option>
+                    {{/each}}
+                </select>
+
+                <label for='update_segment_type'>Travel Type: </label>
+                <select name='update_segment_type' id='update_segment_type'>
+                    <option value='' disabled selected>Select a Type</option>
+                    {{#each travelTypes}}
+                    <option value='{{this.typeID}}'>{{this.travelName}}</option>
+                    {{/each}}
+                </select>
+
+                <label for='update_segment_departure_loc'>Departure Location: </label>
+                <input type='text' name='update_segment_departure_loc' id='update_segment_departure_loc' />
+
+                <label for='update_segment_departure_time'>Departure Time: </label>
+                <input type='datetime-local' name='update_segment_departure_time' id='update_segment_departure_time' />
+
+                <label for='update_segment_arrival_loc'>Arrival Location: </label>
+                <input type='text' name='update_segment_arrival_loc' id='update_segment_arrival_loc' />
+
+                <label for='update_segment_arrival_time'>Arrival Time: </label>
+                <input type='datetime-local' name='update_segment_arrival_time' id='update_segment_arrival_time' />
+
+                <label for='update_segment_trip'>Trip: </label>
+                <select name='update_segment_trip' id='update_segment_trip'>
+                    <option value='' disabled selected>Select a Trip</option>
+                    {{#each trips}}
+                    <option value='{{this.tripID}}'>Trip {{this.tripID}}</option>
+                    {{/each}}
+                </select>
+
+                <input type='submit' />
+            </form>
+        </div>
+    </div>
+</div>

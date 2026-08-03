@@ -1,0 +1,60 @@
+<div class="page">
+    <h1>Travel Types</h1>
+    <p class="page-subtitle">Browse and manage the modes of transportation available.</p>
+
+    <div class="card">
+        <h2>Browse Travel Types</h2>
+        <table>
+            <thead>
+                <tr>
+                    {{#each travelTypes.[0]}}
+                    <th>{{@key}}</th>
+                    {{/each}}
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each travelTypes}}
+                <tr>
+                    <td>{{this.typeID}}</td>
+                    <td>{{this.travelName}}</td>
+                    <form id='delete_traveltype_form'>
+                        <input type='hidden' name='delete_traveltype_id' value='{{this.typeID}}' />
+                        <td><button type='submit'>Delete</button></td>
+                    </form>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-row">
+        <div class="card">
+            <h2>Create a Travel Type</h2>
+            <form class='cuForm' id='create_traveltype_form'>
+                <label for='create_traveltype_name'>Travel Name: </label>
+                <input type='text' name='create_traveltype_name' id='create_traveltype_name' required />
+
+                <input type='submit' />
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Update a Travel Type</h2>
+            <form class='cuForm' id='update_traveltype_form'>
+                <label for='update_traveltype_id'>Type to Update: </label>
+                <select name='update_traveltype_id' id='update_traveltype_id' required>
+                    <option value='' disabled selected>Select a Type</option>
+                    {{#each travelTypes}}
+                    <option value='{{this.typeID}}'>{{this.travelName}}</option>
+                    {{/each}}
+                </select>
+
+                <label for='update_traveltype_name'>Travel Name: </label>
+                <input type='text' name='update_traveltype_name' id='update_traveltype_name' />
+
+                <input type='submit' />
+            </form>
+        </div>
+    </div>
+</div>

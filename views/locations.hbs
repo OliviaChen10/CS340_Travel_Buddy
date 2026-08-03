@@ -1,1 +1,67 @@
-<h1>Locations</h1>
+<div class="page">
+    <h1>Locations</h1>
+    <p class="page-subtitle">Browse destination countries supported by the app.</p>
+
+    <div class="card">
+        <h2>Browse Locations</h2>
+        <table>
+            <thead>
+                <tr>
+                    {{#each locations.[0]}}
+                    <th>{{@key}}</th>
+                    {{/each}}
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each locations}}
+                <tr>
+                    <td>{{this.locationID}}</td>
+                    <td>{{this.countryName}}</td>
+                    <td>{{this.continent}}</td>
+                    <form id='delete_location_form'>
+                        <input type='hidden' name='delete_location_id' value='{{this.locationID}}' />
+                        <td><button type='submit'>Delete</button></td>
+                    </form>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-row">
+        <div class="card">
+            <h2>Create a Location</h2>
+            <form class='cuForm' id='create_location_form'>
+                <label for='create_location_country'>Country: </label>
+                <input type='text' name='create_location_country' id='create_location_country' required />
+
+                <label for='create_location_continent'>Continent: </label>
+                <input type='text' name='create_location_continent' id='create_location_continent' required />
+
+                <input type='submit' />
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Update a Location</h2>
+            <form class='cuForm' id='update_location_form'>
+                <label for='update_location_id'>Location to Update: </label>
+                <select name='update_location_id' id='update_location_id' required>
+                    <option value='' disabled selected>Select a Location</option>
+                    {{#each locations}}
+                    <option value='{{this.locationID}}'>{{this.countryName}}</option>
+                    {{/each}}
+                </select>
+
+                <label for='update_location_country'>Country: </label>
+                <input type='text' name='update_location_country' id='update_location_country' />
+
+                <label for='update_location_continent'>Continent: </label>
+                <input type='text' name='update_location_continent' id='update_location_continent' />
+
+                <input type='submit' />
+            </form>
+        </div>
+    </div>
+</div>

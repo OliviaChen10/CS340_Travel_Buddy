@@ -32,12 +32,12 @@
     <div class="card-row">
         <div class="card">
             <h2>Create a Traveler</h2>
-            <form class='cuForm' id='create_traveler_form'>
+            <form class='cuForm' id='create_traveler_form' method='POST' action='/travelers/create'>
                 <label for='create_traveler_username'>Username: </label>
-                <input type='text' name='create_traveler_username' id='create_traveler_username' required />
+                <input type='text' name='username' id='create_traveler_username' required />
 
                 <label for='create_traveler_email'>Email: </label>
-                <input type='email' name='create_traveler_email' id='create_traveler_email' required />
+                <input type='email' name='email' id='create_traveler_email' required />
 
                 <input type='submit' />
             </form>

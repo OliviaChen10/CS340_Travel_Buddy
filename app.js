@@ -19,7 +19,7 @@ app.engine('.hbs', engine({ extname: '.hbs' })); // Create instance of handlebar
 app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files.
 
 // ########################################
-// ########## ROUTE HANDLERS
+// ############ ROUTE HANDLERS ############
 
 // READ ROUTES
 
@@ -99,9 +99,161 @@ app.get('/traveltypes', async function (req, res) {
 });
 
 
+// ########################################
+// ################ CREATE ################
+
+app.post('/travelers/create', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_createTraveler(?, ?, @newID);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.username,
+            data.email,
+        ]);
+        console.log(`CREATE travelers. ID: ${rows.newID}` +
+            `Name: ${data.username} ${data.email}`
+        );
+
+        // Refresh page with updated webpage
+        res.redirect('/travelers');
+    } catch (error) {
+        console.error('Cannot create new user:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/trips/create', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_createTrip(?, ?, ?, ?, @newID);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.startDate,
+            data.endDate,
+            data.travelerID,
+            data.locationID,
+        ]);
+        console.log(`CREATE trip. ID: ${rows.newID}` +
+            `Name: ${data.startDate} ${data.endDate} ${data.travelerID} ${data.locationID}`
+        );
+
+        // Refresh page with updated webpage
+        res.redirect('/trips');
+    } catch (error) {
+        console.error('Cannot create new trip:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/segments/create', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_createSegment(?, ?, ?, ?, ?, ?, @newID);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.typeID,
+            data.departureLocation,
+            data.departureTime,
+            data.arrivalLocation,
+            data.arrivalTime,
+            data.tripID,
+        ]);
+        console.log(`CREATE segment. ID: ${rows.newID}` +
+            `Name: ${data.typeID} ${data.departureLocation} ${data.departureTime} 
+            ${data.arrivalLocation} ${data.arrivalTime} ${data.tripID}`
+        );
+
+        // Refresh page with updated webpage
+        res.redirect('/segments');
+    } catch (error) {
+        console.error('Cannot create new segment:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/traveltypes/create', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_createTravelType(?, @newID);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.travelName,
+        ]);
+        console.log(`CREATE travelType. ID: ${rows.newID}` +
+            `Name: ${data.travelName}`
+        );
+
+        // Refresh page with updated webpage
+        res.redirect('/traveltypes');
+    } catch (error) {
+        console.error('Cannot create new travel type:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/locations/create', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_createLocation(?, ?, @newID);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.countryName,
+            data.continent,
+        ]);
+        console.log(`CREATE location. ID: ${rows.newID}` +
+            `Name: ${data.countryName} ${data.continent}`
+        );
+
+        // Refresh page with updated webpage
+        res.redirect('/locations');
+    } catch (error) {
+        console.error('Cannot create new locations:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/activities/create', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_createActivity(?, ?, ?, @newID);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.activityName,
+            data.activityType,
+            data.tripID,
+        ]);
+        console.log(`CREATE activity. ID: ${rows.newID}` +
+            `Name: ${data.activityName} ${data.activityType} ${data.tripID}`
+        );
+
+        // Refresh page with updated webpage
+        res.redirect('/activities');
+    } catch (error) {
+        console.error('Cannot create new activity:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
 
 // ########################################
-// ########## LISTENER
+// ############### UPDATE #################
+
+
+
+// ########################################
+// ############### DELETE #################
+
+
+
+
+// ########################################
+// ############## LISTENER ################
 
 app.listen(PORT, function () {
     console.log(

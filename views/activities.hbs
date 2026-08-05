@@ -33,15 +33,15 @@
     <div class="card-row">
         <div class="card">
             <h2>Create an Activity</h2>
-            <form class='cuForm' id='create_activity_form'>
+            <form class='cuForm' id='create_activity_form' method='POST' action='/activities/create'>
                 <label for='create_activity_name'>Activity Name: </label>
-                <input type='text' name='create_activity_name' id='create_activity_name' required />
+                <input type='text' name='activityName' id='create_activity_name' required />
 
                 <label for='create_activity_type'>Activity Type: </label>
-                <input type='text' name='create_activity_type' id='create_activity_type' />
+                <input type='text' name='activityType' id='create_activity_type' />
 
                 <label for='create_activity_trip'>Trip: </label>
-                <select name='create_activity_trip' id='create_activity_trip' required>
+                <select name='tripID' id='create_activity_trip' required>
                     <option value='' disabled selected>Select a Trip</option>
                     {{#each trips}}
                     <option value='{{this.tripID}}'>Trip {{this.tripID}}</option>

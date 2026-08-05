@@ -34,15 +34,15 @@
     <div class="card-row">
         <div class="card">
             <h2>Create a Trip</h2>
-            <form class='cuForm' id='create_trip_form'>
+            <form class='cuForm' id='create_trip_form' method='POST' action='/trips/create'>
                 <label for='create_trip_startdate'>Start Date: </label>
-                <input type='date' name='create_trip_startdate' id='create_trip_startdate' required />
+                <input type='date' name='startDate' id='create_trip_startdate' required />
 
                 <label for='create_trip_enddate'>End Date: </label>
-                <input type='date' name='create_trip_enddate' id='create_trip_enddate' required />
+                <input type='date' name='endDate' id='create_trip_enddate' required />
 
                 <label for='create_trip_traveler'>Traveler: </label>
-                <select name='create_trip_traveler' id='create_trip_traveler' required>
+                <select name='travelerID' id='create_trip_traveler' required>
                     <option value='' disabled selected>Select a Traveler</option>
                     {{#each travelers}}
                     <option value='{{this.travelerID}}'>{{this.username}}</option>
@@ -50,7 +50,7 @@
                 </select>
 
                 <label for='create_trip_location'>Location: </label>
-                <select name='create_trip_location' id='create_trip_location' required>
+                <select name='locationID' id='create_trip_location' required>
                     <option value='' disabled selected>Select a Location</option>
                     {{#each locations}}
                     <option value='{{this.locationID}}'>{{this.countryName}}</option>

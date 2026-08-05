@@ -36,9 +36,9 @@
     <div class="card-row">
         <div class="card">
             <h2>Create a Segment</h2>
-            <form class='cuForm' id='create_segment_form'>
+            <form class='cuForm' id='create_segment_form' method='POST' action='/segments/create'>
                 <label for='create_segment_type'>Travel Type: </label>
-                <select name='create_segment_type' id='create_segment_type' required>
+                <select name='typeID' id='create_segment_type' required>
                     <option value='' disabled selected>Select a Type</option>
                     {{#each travelTypes}}
                     <option value='{{this.typeID}}'>{{this.travelName}}</option>
@@ -46,19 +46,19 @@
                 </select>
 
                 <label for='create_segment_departure_loc'>Departure Location: </label>
-                <input type='text' name='create_segment_departure_loc' id='create_segment_departure_loc' required />
+                <input type='text' name='departureLocation' id='create_segment_departure_loc' required />
 
                 <label for='create_segment_departure_time'>Departure Time: </label>
-                <input type='datetime-local' name='create_segment_departure_time' id='create_segment_departure_time' required />
+                <input type='datetime-local' name='departureTime' id='create_segment_departure_time' required />
 
                 <label for='create_segment_arrival_loc'>Arrival Location: </label>
-                <input type='text' name='create_segment_arrival_loc' id='create_segment_arrival_loc' required />
+                <input type='text' name='arrivalLocation' id='create_segment_arrival_loc' required />
 
                 <label for='create_segment_arrival_time'>Arrival Time: </label>
-                <input type='datetime-local' name='create_segment_arrival_time' id='create_segment_arrival_time' required />
+                <input type='datetime-local' name='arrivalTime' id='create_segment_arrival_time' required />
 
                 <label for='create_segment_trip'>Trip: </label>
-                <select name='create_segment_trip' id='create_segment_trip' required>
+                <select name='tripID' id='create_segment_trip' required>
                     <option value='' disabled selected>Select a Trip</option>
                     {{#each trips}}
                     <option value='{{this.tripID}}'>Trip {{this.tripID}}</option>

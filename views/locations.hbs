@@ -32,12 +32,12 @@
     <div class="card-row">
         <div class="card">
             <h2>Create a Location</h2>
-            <form class='cuForm' id='create_location_form'>
+            <form class='cuForm' id='create_location_form' method='POST' action='/locations/create'>
                 <label for='create_location_country'>Country: </label>
-                <input type='text' name='create_location_country' id='create_location_country' required />
+                <input type='text' name='countryName' id='create_location_country' required />
 
                 <label for='create_location_continent'>Continent: </label>
-                <input type='text' name='create_location_continent' id='create_location_continent' required />
+                <input type='text' name='continent' id='create_location_continent' required />
 
                 <input type='submit' />
             </form>

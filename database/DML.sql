@@ -96,11 +96,11 @@ WHERE typeID = :typeIDInput;
 -- ============================================================
 
 -- Get all trips (Browse Trips table)
-SELECT tripID, startDate, endDate, travelerID, locationID
+SELECT tripID, tripName, startDate, endDate, travelerID, locationID
 FROM Trips;
 
 -- Get a single trip by ID (used to pre-fill the Update form)
-SELECT tripID, startDate, endDate, travelerID, locationID
+SELECT tripID, tripName, startDate, endDate, travelerID, locationID
 FROM Trips
 WHERE tripID = :tripID;
 
@@ -113,12 +113,13 @@ SELECT locationID, countryName
 FROM Locations;
 
 -- Add a new trip (Create a Trip form)
-INSERT INTO Trips (startDate, endDate, travelerID, locationID)
-VALUES (:startDateInput, :endDateInput, :travelerIDInput, :locationIDInput);
+INSERT INTO Trips (tripName, startDate, endDate, travelerID, locationID)
+VALUES (:tripNameInput, :startDateInput, :endDateInput, :travelerIDInput, :locationIDInput);
 
 -- Update an existing trip (Update a Trip form)
 UPDATE Trips
-SET startDate = :startDateInput,
+SET tripName = :tripNameInput,
+    startDate = :startDateInput,
     endDate = :endDateInput,
     travelerID = :travelerIDInput,
     locationID = :locationIDInput

@@ -16,11 +16,13 @@
             <tbody>
                 {{#each locations}}
                 <tr>
-                    <td>{{this.locationID}}</td>
-                    <td>{{this.countryName}}</td>
-                    <td>{{this.continent}}</td>
+                    <td>{{this.ID}}</td>
+                    <td>{{this.Country}}</td>
+                    <td>{{this.Continent}}</td>
                     <form id='delete_location_form' method='POST' action='/locations/delete'>
                         <input type='hidden' name='locationID' value='{{this.locationID}}' />
+                        <input type='hidden' name='countryName' value='{{this.countryName}}' />
+                        <input type='hidden' name='continent' value='{{this.continent}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>

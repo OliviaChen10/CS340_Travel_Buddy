@@ -16,11 +16,12 @@
             <tbody>
                 {{#each travelers}}
                 <tr>
-                    <td>{{this.travelerID}}</td>
-                    <td>{{this.username}}</td>
-                    <td>{{this.email}}</td>
+                    <td>{{this.ID}}</td>
+                    <td>{{this.Name}}</td>
+                    <td>{{this.Email}}</td>
                     <form id='delete_traveler_form' method='POST' action='/travelers/delete'>
                         <input type='hidden' name='travelerID' value='{{this.travelerID}}' />
+                        <input type='hidden' name='username' value='{{this.username}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>

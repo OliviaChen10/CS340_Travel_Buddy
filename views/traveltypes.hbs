@@ -16,10 +16,11 @@
             <tbody>
                 {{#each travelTypes}}
                 <tr>
-                    <td>{{this.typeID}}</td>
-                    <td>{{this.travelName}}</td>
+                    <td>{{this.ID}}</td>
+                    <td>{{this.Name}}</td>
                     <form id='delete_traveltype_form' method='POST' action='/traveltypes/delete'>
                         <input type='hidden' name='typeID' value='{{this.typeID}}' />
+                        <input type='hidden' name='travelName' value='{{this.travelName}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>

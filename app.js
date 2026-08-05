@@ -35,7 +35,10 @@ app.get('/', async function (req, res) {
 
 app.get('/travelers', async function (req, res) {
     try {
-        const [travelers] = await db.query('SELECT * FROM Travelers;');
+        const [travelers] = await db.query(`
+            SELECT travelerID AS ID, username AS Name, email AS Email
+            FROM Travelers;
+        `);
         res.render('travelers', { travelers: travelers });
     } catch (error) {
         console.error('Error rendering travelers page:', error);
@@ -45,7 +48,10 @@ app.get('/travelers', async function (req, res) {
 
 app.get('/locations', async function (req, res) {
     try {
-        const [locations] = await db.query('SELECT * FROM Locations;');
+        const [locations] = await db.query(`
+            SELECT locationID AS ID, countryName AS Country, continent AS Continent
+            FROM Locations
+        `);
         res.render('locations', { locations: locations });
     } catch (error) {
         console.error('Error rendering locations page:', error);
@@ -55,9 +61,12 @@ app.get('/locations', async function (req, res) {
 
 app.get('/trips', async function (req, res) {
     try {
-        const [trips] = await db.query('SELECT * FROM Trips;');
-        const [travelers] = await db.query('SELECT * FROM Travelers;');
-        const [locations] = await db.query('SELECT * FROM Locations;');
+        const [trips] = await db.query(`
+            SELECT tripID AS ID, startDate AS Start, endDate AS End, travelerID AS Traveler, locationID as Location
+            FROM Trips
+        `);
+        const [travelers] = await db.query(`SELECT * FROM Travelers;`);
+        const [locations] = await db.query(`SELECT * FROM Locations;`);
         res.render('trips', { trips: trips, travelers: travelers, locations: locations });
     } catch (error) {
         console.error('Error rendering trips page:', error);
@@ -67,7 +76,16 @@ app.get('/trips', async function (req, res) {
 
 app.get('/segments', async function (req, res) {
     try {
-        const [segments] = await db.query('SELECT * FROM Segments;');
+        const [segments] = await db.query(`
+            SELECT Segments.segmentID AS ID, TravelTypes.travelName as Type, 
+                Segments.departureLocation AS Departure, 
+                Segments.departureTime as DepartureTime, 
+                Segments.arrivalLocation as Arrival, 
+                Segments. arrivalTime as ArrivalTime, 
+                Segments.tripID as Trip
+            FROM Segments
+            JOIN TravelTypes ON Segments.typeID = TravelTypes.typeID
+            `);
         const [trips] = await db.query('SELECT * FROM Trips;');
         const [travelTypes] = await db.query('SELECT * FROM TravelTypes;');
         res.render('segments', { segments: segments, trips: trips, travelTypes: travelTypes });
@@ -79,7 +97,10 @@ app.get('/segments', async function (req, res) {
 
 app.get('/activities', async function (req, res) {
     try {
-        const [activities] = await db.query('SELECT * FROM Activities;');
+        const [activities] = await db.query(`
+            SELECT activityID AS ID, activityName as Activity, activityType as Type, tripID as Trip
+            FROM Activities
+        `);
         const [trips] = await db.query('SELECT * FROM Trips;');
         res.render('activities', { activities: activities, trips: trips });
     } catch (error) {
@@ -90,7 +111,10 @@ app.get('/activities', async function (req, res) {
 
 app.get('/traveltypes', async function (req, res) {
     try {
-        const [travelTypes] = await db.query('SELECT * FROM TravelTypes;');
+        const [travelTypes] = await db.query(`
+            SELECT typeID AS ID, travelName AS Name
+            FROM TravelTypes
+        `);
         res.render('traveltypes', { travelTypes: travelTypes });
     } catch (error) {
         console.error('Error rendering traveltypes page:', error);
@@ -113,7 +137,7 @@ app.post('/travelers/create', async function (req, res) {
             data.email,
         ]);
         console.log(`CREATE travelers. ID: ${rows.newID}` +
-            `Name: ${data.username} ${data.email}`
+            ` Username: ${data.username} Email: ${data.email}`
         );
 
         // Refresh page with updated webpage
@@ -137,7 +161,8 @@ app.post('/trips/create', async function (req, res) {
             data.locationID,
         ]);
         console.log(`CREATE trip. ID: ${rows.newID}` +
-            `Name: ${data.startDate} ${data.endDate} ${data.travelerID} ${data.locationID}`
+            ` Start Date: ${data.startDate} End Date: ${data.endDate} 
+            Traveler ID: ${data.travelerID} Location ID: ${data.locationID}`
         );
 
         // Refresh page with updated webpage
@@ -163,8 +188,9 @@ app.post('/segments/create', async function (req, res) {
             data.tripID,
         ]);
         console.log(`CREATE segment. ID: ${rows.newID}` +
-            `Name: ${data.typeID} ${data.departureLocation} ${data.departureTime} 
-            ${data.arrivalLocation} ${data.arrivalTime} ${data.tripID}`
+            ` Type ID: ${data.typeID} Departure Location: ${data.departureLocation} 
+            Departure Time: ${data.departureTime} Arrival Location: ${data.arrivalLocation} 
+            Arrival Time: ${data.arrivalTime} Trip ID: ${data.tripID}`
         );
 
         // Refresh page with updated webpage
@@ -185,7 +211,7 @@ app.post('/traveltypes/create', async function (req, res) {
             data.travelName,
         ]);
         console.log(`CREATE travelType. ID: ${rows.newID}` +
-            `Name: ${data.travelName}`
+            ` Name: ${data.travelName}`
         );
 
         // Refresh page with updated webpage
@@ -207,7 +233,7 @@ app.post('/locations/create', async function (req, res) {
             data.continent,
         ]);
         console.log(`CREATE location. ID: ${rows.newID}` +
-            `Name: ${data.countryName} ${data.continent}`
+            ` Name: ${data.countryName} Continent: ${data.continent}`
         );
 
         // Refresh page with updated webpage
@@ -230,7 +256,7 @@ app.post('/activities/create', async function (req, res) {
             data.tripID,
         ]);
         console.log(`CREATE activity. ID: ${rows.newID}` +
-            `Name: ${data.activityName} ${data.activityType} ${data.tripID}`
+            ` Name: ${data.activityName} - ${data.activityType}`
         );
 
         // Refresh page with updated webpage
@@ -258,7 +284,7 @@ app.post('/travelers/delete', async function (req, res) {
         await db.query(query1, [data.travelerID]);
 
         console.log(`DELETE traveler. ID: ${data.travelerID}` +
-            `Name: ${data.travelerID}`
+            ` Name: ${data.username}`
         );
 
         // Redirect user to updated page
@@ -278,7 +304,7 @@ app.post('/trips/delete', async function (req, res) {
         await db.query(query1, [data.tripID]);
 
         console.log(`DELETE trip. ID: ${data.tripID}` +
-            `Name: ${data.tripID}`
+            ` Name: ${data.tripID}`
         );
 
         // Redirect user to updated page
@@ -298,7 +324,7 @@ app.post('/segments/delete', async function (req, res) {
         await db.query(query1, [data.segmentID]);
 
         console.log(`DELETE trip. ID: ${data.segmentID}` +
-            `Name: ${data.segmentID}`
+            ` Departure: ${data.segmentID} ${data.departureLocation} Arrival: ${data.arrivalLocation}`
         );
 
         // Redirect user to updated page
@@ -318,7 +344,7 @@ app.post('/traveltypes/delete', async function (req, res) {
         await db.query(query1, [data.typeID]);
 
         console.log(`DELETE traveltype. ID: ${data.typeID}` +
-            `Name: ${data.typeID}`
+            ` Name: ${data.travelName}`
         );
 
         // Redirect user to updated page
@@ -338,7 +364,7 @@ app.post('/locations/delete', async function (req, res) {
         await db.query(query1, [data.locationID]);
 
         console.log(`DELETE traveler. ID: ${data.locationID}` +
-            `Name: ${data.locationID}`
+            ` Country: ${data.countryName} Continent: ${data.continent}`
         );
 
         // Redirect user to updated page
@@ -358,7 +384,7 @@ app.post('/activities/delete', async function (req, res) {
         await db.query(query1, [data.activityID]);
 
         console.log(`DELETE traveler. ID: ${data.activityID}` +
-            `Name: ${data.activityID}`
+            ` Name: ${data.activityName} - ${data.activityType}`
         );
 
         // Redirect user to updated page

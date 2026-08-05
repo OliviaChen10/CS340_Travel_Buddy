@@ -16,15 +16,17 @@
             <tbody>
                 {{#each segments}}
                 <tr>
-                    <td>{{this.segmentID}}</td>
-                    <td>{{this.typeID}}</td>
-                    <td>{{this.departureLocation}}</td>
-                    <td>{{this.departureTime}}</td>
-                    <td>{{this.arrivalLocation}}</td>
-                    <td>{{this.arrivalTime}}</td>
-                    <td>{{this.tripID}}</td>
+                    <td>{{this.ID}}</td>
+                    <td>{{this.Type}}</td>
+                    <td>{{this.Departure}}</td>
+                    <td>{{this.DepartureTime}}</td>
+                    <td>{{this.Arrival}}</td>
+                    <td>{{this.ArrivalTime}}</td>
+                    <td>{{this.Trip}}</td>
                     <form id='delete_segment_form' method='POST' action='/segments/delete'>
                         <input type='hidden' name='segmentID' value='{{this.segmentID}}' />
+                        <input type='hidden' name='departureLocation' value='{{this.departureLocation}}' />
+                        <input type='hidden' name='arrivalLocation' value='{{this.arrivalLocation}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>

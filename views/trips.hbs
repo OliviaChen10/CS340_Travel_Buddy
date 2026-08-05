@@ -16,11 +16,11 @@
             <tbody>
                 {{#each trips}}
                 <tr>
-                    <td>{{this.tripID}}</td>
-                    <td>{{this.startDate}}</td>
-                    <td>{{this.endDate}}</td>
-                    <td>{{this.travelerID}}</td>
-                    <td>{{this.locationID}}</td>
+                    <td>{{this.ID}}</td>
+                    <td>{{this.Start}}</td>
+                    <td>{{this.End}}</td>
+                    <td>{{this.Traveler}}</td>
+                    <td>{{this.Location}}</td>
                     <form id='delete_trip_form' method='POST' action='/trips/delete'>
                         <input type='hidden' name='tripID' value='{{this.tripID}}' />
                         <td><button type='submit'>Delete</button></td>

@@ -19,8 +19,8 @@
                     <td>{{this.locationID}}</td>
                     <td>{{this.countryName}}</td>
                     <td>{{this.continent}}</td>
-                    <form id='delete_location_form'>
-                        <input type='hidden' name='delete_location_id' value='{{this.locationID}}' />
+                    <form id='delete_location_form' method='POST' action='/locations/delete'>
+                        <input type='hidden' name='locationID' value='{{this.locationID}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>

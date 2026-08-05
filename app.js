@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const PORT = 27072;
+const PORT = 27071;
 
 // Database
 const db = require('./database/db-connector');
@@ -249,8 +249,125 @@ app.post('/activities/create', async function (req, res) {
 // ########################################
 // ############### DELETE #################
 
+app.post('/travelers/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
 
+        const query1 = `CALL sp_deleteTraveler(?);`;
+        await db.query(query1, [data.travelerID]);
 
+        console.log(`DELETE traveler. ID: ${data.travelerID}` +
+            `Name: ${data.travelerID}`
+        );
+
+        // Redirect user to updated page
+        res.redirect('/travelers');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occured while executing the database queries.')
+    }
+})
+
+app.post('/trips/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        const query1 = `CALL sp_deleteTrip(?);`;
+        await db.query(query1, [data.tripID]);
+
+        console.log(`DELETE trip. ID: ${data.tripID}` +
+            `Name: ${data.tripID}`
+        );
+
+        // Redirect user to updated page
+        res.redirect('/trips');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occured while executing the database queries.')
+    }
+})
+
+app.post('/segments/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        const query1 = `CALL sp_deleteSegment(?);`;
+        await db.query(query1, [data.segmentID]);
+
+        console.log(`DELETE trip. ID: ${data.segmentID}` +
+            `Name: ${data.segmentID}`
+        );
+
+        // Redirect user to updated page
+        res.redirect('/segments');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occured while executing the database queries.')
+    }
+})
+
+app.post('/traveltypes/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        const query1 = `CALL sp_deleteTravelType(?);`;
+        await db.query(query1, [data.typeID]);
+
+        console.log(`DELETE traveltype. ID: ${data.typeID}` +
+            `Name: ${data.typeID}`
+        );
+
+        // Redirect user to updated page
+        res.redirect('/traveltypes');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occured while executing the database queries.')
+    }
+})
+
+app.post('/locations/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        const query1 = `CALL sp_deleteLocation(?);`;
+        await db.query(query1, [data.locationID]);
+
+        console.log(`DELETE traveler. ID: ${data.locationID}` +
+            `Name: ${data.locationID}`
+        );
+
+        // Redirect user to updated page
+        res.redirect('/locations');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occured while executing the database queries.')
+    }
+})
+
+app.post('/activities/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        const query1 = `CALL sp_deleteActivity(?);`;
+        await db.query(query1, [data.activityID]);
+
+        console.log(`DELETE traveler. ID: ${data.activityID}` +
+            `Name: ${data.activityID}`
+        );
+
+        // Redirect user to updated page
+        res.redirect('/activities');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        res.status(500).send('An error occured while executing the database queries.')
+    }
+})
 
 // ########################################
 // ############## LISTENER ################

@@ -19,8 +19,8 @@
                     <td>{{this.travelerID}}</td>
                     <td>{{this.username}}</td>
                     <td>{{this.email}}</td>
-                    <form id='delete_traveler_form'>
-                        <input type='hidden' name='delete_traveler_id' value='{{this.travelerID}}' />
+                    <form id='delete_traveler_form' method='POST' action='/travelers/delete'>
+                        <input type='hidden' name='travelerID' value='{{this.travelerID}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>

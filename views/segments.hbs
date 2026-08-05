@@ -23,8 +23,8 @@
                     <td>{{this.arrivalLocation}}</td>
                     <td>{{this.arrivalTime}}</td>
                     <td>{{this.tripID}}</td>
-                    <form id='delete_segment_form'>
-                        <input type='hidden' name='delete_segment_id' value='{{this.segmentID}}' />
+                    <form id='delete_segment_form' method='POST' action='/segments/delete'>
+                        <input type='hidden' name='segmentID' value='{{this.segmentID}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>

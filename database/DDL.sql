@@ -69,6 +69,7 @@ CREATE TABLE TravelTypes (
 -- ------------------------------------------------------------
 CREATE TABLE Trips (
     tripID INT NOT NULL AUTO_INCREMENT,
+    tripName VARCHAR(250) UNIQUE,
     startDate DATE	NOT NULL,
     endDate DATE NOT NULL,
     travelerID INT NOT NULL,
@@ -142,12 +143,12 @@ INSERT INTO TravelTypes (travelName) VALUES
 ('Car');
  
 -- Trips
-INSERT INTO Trips (startDate, endDate, travelerID, locationID) VALUES
-('2026-03-15', '2026-03-21', 1, 1),
-('2026-01-10', '2026-01-17', 3, 4),
-('2025-07-01', '2025-07-04', 4, 3),
-('2025-05-16', '2025-05-19', 1, 2),
-('2024-09-20', '2024-10-20', 2, 1);
+INSERT INTO Trips (tripName, startDate, endDate, travelerID, locationID) VALUES
+('Canadia :D', '2026-03-15', '2026-03-21', 1, 1),
+('Japan Trip!!!!', '2026-01-10', '2026-01-17', 3, 4),
+('Colombian Coffee Trip', '2025-07-01', '2025-07-04', 4, 3),
+('Black sand beaches!', '2025-05-16', '2025-05-19', 1, 2),
+('Ice Hockey', '2024-09-20', '2024-10-20', 2, 1);
  
 -- Segments
 -- (departure/arrival dates are anchored to each segment's parent

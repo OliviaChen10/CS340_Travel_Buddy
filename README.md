@@ -22,3 +22,8 @@ URL: https://www.w3schools.com/cssref/pr_background-image.php
 Date retrieved: 7/28/26
 Based on the directions/code from Oregon State CS340 Exploration - Web Application Technology. Created UI pages using node.js instructions.
 URL: https://canvas.oregonstate.edu/courses/2051721/pages/exploration-web-application-technology-2?module_item_id=26923351
+
+### Citation for implementing CRUD operations
+Date retrieved: 8/4/26
+Based on the directions/code from Oregon State CS340 Exploration - Implementing CUD operations in your app. Wrote stored procedures and route handler code using node.js instructions.
+URL: https://canvas.oregonstate.edu/courses/2051721/pages/exploration-implementing-cud-operations-in-your-app?module_item_id=26923368

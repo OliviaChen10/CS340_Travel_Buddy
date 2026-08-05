@@ -21,9 +21,9 @@
                     <td>{{this.Type}}</td>
                     <td>{{this.Trip}}</td>
                     <form id='delete_activity_form' method='POST' action='/activities/delete'>
-                        <input type='hidden' name='activityID' value='{{this.activityID}}' />
-                        <input type='hidden' name='activityName' value='{{this.activityName}}' />
-                        <input type='hidden' name='activityType' value='{{this.activityType}}' />
+                        <input type='hidden' name='activityID' value='{{this.ID}}' />
+                        <input type='hidden' name='activityName' value='{{this.Activity}}' />
+                        <input type='hidden' name='activityType' value='{{this.Type}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>
@@ -46,7 +46,7 @@
                 <select name='tripID' id='create_activity_trip' required>
                     <option value='' disabled selected>Select a Trip</option>
                     {{#each trips}}
-                    <option value='{{this.tripID}}'>Trip {{this.tripID}}</option>
+                    <option value='{{this.tripID}}'>Trip {{this.tripID}} - {{this.tripName}} </option>
                     {{/each}}
                 </select>
 

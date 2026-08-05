@@ -25,7 +25,7 @@ DELIMITER ;
 
 
 -- #############################
--- CREATE location
+-- CREATE segment
 -- #############################
 DROP PROCEDURE IF EXISTS sp_createSegment;
 
@@ -54,12 +54,13 @@ DELIMITER ;
 
 
 -- #############################
--- CREATE location
+-- CREATE trip
 -- #############################
 DROP PROCEDURE IF EXISTS sp_createTrip;
 
 DELIMITER //
 CREATE PROCEDURE sp_createTrip(
+    IN p_tripName VARCHAR(250),
     IN p_startDate DATE,
     IN p_endDate DATE,
     IN p_travelerID INT,
@@ -68,8 +69,8 @@ CREATE PROCEDURE sp_createTrip(
 )
 
 BEGIN
-    INSERT INTO Trips (startDate, endDate, travelerID, locationID)
-    VALUES (p_startDate, p_endDate, p_travelerID, p_locationID);
+    INSERT INTO Trips (tripName, startDate, endDate, travelerID, locationID)
+    VALUES (p_tripName, p_startDate, p_endDate, p_travelerID, p_locationID);
 
     -- Store the ID of the last inserted row
     SELECT LAST_INSERT_ID() into p_tripID;

@@ -17,14 +17,17 @@
                 {{#each trips}}
                 <tr>
                     <td>{{this.ID}}</td>
+                    <td>{{this.Name}}</td>
                     <td>{{this.Start}}</td>
                     <td>{{this.End}}</td>
                     <td>{{this.Traveler}}</td>
                     <td>{{this.Location}}</td>
-                    <form id='delete_trip_form' method='POST' action='/trips/delete'>
-                        <input type='hidden' name='tripID' value='{{this.tripID}}' />
+                        <form id='delete_trip_form' method='POST' action='/trips/delete'>
+                        <input type='hidden' name='tripID' value='{{this.ID}}' />
+                        <input type='hidden' name='tripName' value='{{this.Name}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
+                    
                 </tr>
                 {{/each}}
             </tbody>
@@ -35,6 +38,9 @@
         <div class="card">
             <h2>Create a Trip</h2>
             <form class='cuForm' id='create_trip_form' method='POST' action='/trips/create'>
+                <label for='create_trip_name'>Trip Name: </label>
+                <input type='text' name='tripName' id='create_trip_name' />
+
                 <label for='create_trip_startdate'>Start Date: </label>
                 <input type='date' name='startDate' id='create_trip_startdate' required />
 
@@ -68,7 +74,7 @@
                 <select name='update_trip_id' id='update_trip_id' required>
                     <option value='' disabled selected>Select a Trip</option>
                     {{#each trips}}
-                    <option value='{{this.tripID}}'>Trip {{this.tripID}}</option>
+                    <option value='{{this.ID}}'>Trip {{this.ID}}</option>
                     {{/each}}
                 </select>
 

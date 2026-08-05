@@ -17,16 +17,16 @@
                 {{#each segments}}
                 <tr>
                     <td>{{this.ID}}</td>
-                    <td>{{this.Type}}</td>
+                    <td>{{this.Via}}</td>
                     <td>{{this.Departure}}</td>
                     <td>{{this.DepartureTime}}</td>
                     <td>{{this.Arrival}}</td>
                     <td>{{this.ArrivalTime}}</td>
                     <td>{{this.Trip}}</td>
                     <form id='delete_segment_form' method='POST' action='/segments/delete'>
-                        <input type='hidden' name='segmentID' value='{{this.segmentID}}' />
-                        <input type='hidden' name='departureLocation' value='{{this.departureLocation}}' />
-                        <input type='hidden' name='arrivalLocation' value='{{this.arrivalLocation}}' />
+                        <input type='hidden' name='segmentID' value='{{this.ID}}' />
+                        <input type='hidden' name='departureLocation' value='{{this.Departure}}' />
+                        <input type='hidden' name='arrivalLocation' value='{{this.Arrival}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>
@@ -63,7 +63,7 @@
                 <select name='tripID' id='create_segment_trip' required>
                     <option value='' disabled selected>Select a Trip</option>
                     {{#each trips}}
-                    <option value='{{this.tripID}}'>Trip {{this.tripID}}</option>
+                    <option value='{{this.tripID}}'>Trip {{this.tripID}} - {{this.tripName}} </option>
                     {{/each}}
                 </select>
 

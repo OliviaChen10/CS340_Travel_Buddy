@@ -19,8 +19,8 @@
                     <td>{{this.ID}}</td>
                     <td>{{this.Name}}</td>
                     <form id='delete_traveltype_form' method='POST' action='/traveltypes/delete'>
-                        <input type='hidden' name='typeID' value='{{this.typeID}}' />
-                        <input type='hidden' name='travelName' value='{{this.travelName}}' />
+                        <input type='hidden' name='typeID' value='{{this.ID}}' />
+                        <input type='hidden' name='travelName' value='{{this.Name}}' />
                         <td><button type='submit'>Delete</button></td>
                     </form>
                 </tr>

@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const PORT = 27071;
+const PORT = 27072;
 
 // Database
 const db = require('./database/db-connector');
@@ -62,8 +62,11 @@ app.get('/locations', async function (req, res) {
 app.get('/trips', async function (req, res) {
     try {
         const [trips] = await db.query(`
-            SELECT tripID AS ID, startDate AS Start, endDate AS End, travelerID AS Traveler, locationID as Location
+            SELECT Trips.tripID AS ID, Trips.tripName as Name, Trips.startDate AS Start, 
+            Trips.endDate AS End, Travelers.username AS Traveler, Locations.countryName as Location
             FROM Trips
+            JOIN Travelers ON Trips.travelerID = Travelers.travelerID
+            JOIN Locations ON Trips.locationID = Locations.locationID;
         `);
         const [travelers] = await db.query(`SELECT * FROM Travelers;`);
         const [locations] = await db.query(`SELECT * FROM Locations;`);
@@ -77,14 +80,15 @@ app.get('/trips', async function (req, res) {
 app.get('/segments', async function (req, res) {
     try {
         const [segments] = await db.query(`
-            SELECT Segments.segmentID AS ID, TravelTypes.travelName as Type, 
+            SELECT Segments.segmentID AS ID, TravelTypes.travelName as Via, 
                 Segments.departureLocation AS Departure, 
                 Segments.departureTime as DepartureTime, 
                 Segments.arrivalLocation as Arrival, 
-                Segments. arrivalTime as ArrivalTime, 
-                Segments.tripID as Trip
+                Segments.arrivalTime as ArrivalTime, 
+                Trips.tripName as Trip
             FROM Segments
             JOIN TravelTypes ON Segments.typeID = TravelTypes.typeID
+            JOIN Trips ON Segments.tripID = Trips.tripID;
             `);
         const [trips] = await db.query('SELECT * FROM Trips;');
         const [travelTypes] = await db.query('SELECT * FROM TravelTypes;');
@@ -98,8 +102,10 @@ app.get('/segments', async function (req, res) {
 app.get('/activities', async function (req, res) {
     try {
         const [activities] = await db.query(`
-            SELECT activityID AS ID, activityName as Activity, activityType as Type, tripID as Trip
+            SELECT Activities.activityID AS ID, Activities.activityName as Activity, 
+            Activities.activityType as Type, Trips.tripName as Trip
             FROM Activities
+            JOIN Trips ON Activities.tripID = Trips.tripID;
         `);
         const [trips] = await db.query('SELECT * FROM Trips;');
         res.render('activities', { activities: activities, trips: trips });
@@ -151,17 +157,18 @@ app.post('/travelers/create', async function (req, res) {
 app.post('/trips/create', async function (req, res) {
     try {
         let data = req.body;
-        const query1 = `CALL sp_createTrip(?, ?, ?, ?, @newID);`;
+        const query1 = `CALL sp_createTrip(?, ?, ?, ?, ?, @newID);`;
 
         // Store ID of last inserted row
         const [[[rows]]] = await db.query(query1, [
+            data.tripName,
             data.startDate,
             data.endDate,
             data.travelerID,
             data.locationID,
         ]);
         console.log(`CREATE trip. ID: ${rows.newID}` +
-            ` Start Date: ${data.startDate} End Date: ${data.endDate} 
+            ` Trip Name: ${data.tripName} Start Date: ${data.startDate} End Date: ${data.endDate} 
             Traveler ID: ${data.travelerID} Location ID: ${data.locationID}`
         );
 
@@ -284,7 +291,7 @@ app.post('/travelers/delete', async function (req, res) {
         await db.query(query1, [data.travelerID]);
 
         console.log(`DELETE traveler. ID: ${data.travelerID}` +
-            ` Name: ${data.username}`
+            ` Name: ${data.username} Email: ${data.email}`
         );
 
         // Redirect user to updated page
@@ -304,7 +311,7 @@ app.post('/trips/delete', async function (req, res) {
         await db.query(query1, [data.tripID]);
 
         console.log(`DELETE trip. ID: ${data.tripID}` +
-            ` Name: ${data.tripID}`
+            ` Trip: ${data.tripName}`
         );
 
         // Redirect user to updated page

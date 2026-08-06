@@ -19,12 +19,12 @@
                     <td>{{this.ID}}</td>
                     <td>{{this.Country}}</td>
                     <td>{{this.Continent}}</td>
-                    <form id='delete_location_form' method='POST' action='/locations/delete'>
-                        <input type='hidden' name='locationID' value='{{this.ID}}' />
-                        <input type='hidden' name='countryName' value='{{this.Country}}' />
-                        <input type='hidden' name='continent' value='{{this.Continent}}' />
-                        <td><button type='submit'>Delete</button></td>
-                    </form>
+                    <td>
+                        <form method="POST" action="/locations/delete">
+                            <input type="hidden" name="locationID" value="{{this.ID}}" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>
@@ -34,35 +34,35 @@
     <div class="card-row">
         <div class="card">
             <h2>Create a Location</h2>
-            <form class='cuForm' id='create_location_form' method='POST' action='/locations/create'>
-                <label for='create_location_country'>Country: </label>
-                <input type='text' name='countryName' id='create_location_country' required />
+            <form class="cuForm" method="POST" action="/locations/create">
+                <label for="countryName">Country: </label>
+                <input type="text" name="countryName" id="countryName" required />
 
-                <label for='create_location_continent'>Continent: </label>
-                <input type='text' name='continent' id='create_location_continent' required />
+                <label for="continent">Continent: </label>
+                <input type="text" name="continent" id="continent" required />
 
-                <input type='submit' />
+                <input type="submit" />
             </form>
         </div>
 
         <div class="card">
             <h2>Update a Location</h2>
-            <form class='cuForm' id='update_location_form'>
-                <label for='update_location_id'>Location to Update: </label>
-                <select name='update_location_id' id='update_location_id' required>
-                    <option value='' disabled selected>Select a Location</option>
+            <form class="cuForm" method="POST" action="/locations/update">
+                <label for="update_locationID">Location to Update: </label>
+                <select name="locationID" id="update_locationID" required>
+                    <option value="" disabled selected>Select a Location</option>
                     {{#each locations}}
-                    <option value='{{this.locationID}}'>{{this.countryName}}</option>
+                    <option value="{{this.ID}}">{{this.Country}}</option>
                     {{/each}}
                 </select>
 
-                <label for='update_location_country'>Country: </label>
-                <input type='text' name='update_location_country' id='update_location_country' />
+                <label for="update_countryName">Country: </label>
+                <input type="text" name="countryName" id="update_countryName" required />
 
-                <label for='update_location_continent'>Continent: </label>
-                <input type='text' name='update_location_continent' id='update_location_continent' />
+                <label for="update_continent">Continent: </label>
+                <input type="text" name="continent" id="update_continent" required />
 
-                <input type='submit' />
+                <input type="submit" />
             </form>
         </div>
     </div>

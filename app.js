@@ -277,6 +277,109 @@ app.post('/activities/create', async function (req, res) {
 // ########################################
 // ############### UPDATE #################
 
+app.post('/travelers/update', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_updateTraveler(?, ?, ?);`;
+        await db.query(query1, [data.travelerID, data.username, data.email]);
+
+        console.log(`UPDATE traveler. ID: ${data.travelerID} Username: ${data.username} Email: ${data.email}`);
+        res.redirect('/travelers');
+    } catch (error) {
+        console.error('Cannot update traveler:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/locations/update', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_updateLocation(?, ?, ?);`;
+        await db.query(query1, [data.locationID, data.countryName, data.continent]);
+
+        console.log(`UPDATE location. ID: ${data.locationID} Country: ${data.countryName} Continent: ${data.continent}`);
+        res.redirect('/locations');
+    } catch (error) {
+        console.error('Cannot update location:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/traveltypes/update', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_updateTravelType(?, ?);`;
+        await db.query(query1, [data.typeID, data.travelName]);
+
+        console.log(`UPDATE travelType. ID: ${data.typeID} Name: ${data.travelName}`);
+        res.redirect('/traveltypes');
+    } catch (error) {
+        console.error('Cannot update travel type:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/trips/update', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_updateTrip(?, ?, ?, ?, ?, ?);`;
+        await db.query(query1, [
+            data.tripID,
+            data.tripName,
+            data.startDate,
+            data.endDate,
+            data.travelerID,
+            data.locationID,
+        ]);
+
+        console.log(`UPDATE trip. ID: ${data.tripID} Name: ${data.tripName}`);
+        res.redirect('/trips');
+    } catch (error) {
+        console.error('Cannot update trip:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/segments/update', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_updateSegment(?, ?, ?, ?, ?, ?, ?);`;
+        await db.query(query1, [
+            data.segmentID,
+            data.typeID,
+            data.departureLocation,
+            data.departureTime,
+            data.arrivalLocation,
+            data.arrivalTime,
+            data.tripID,
+        ]);
+
+        console.log(`UPDATE segment. ID: ${data.segmentID}`);
+        res.redirect('/segments');
+    } catch (error) {
+        console.error('Cannot update segment:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
+
+app.post('/activities/update', async function (req, res) {
+    try {
+        let data = req.body;
+        const query1 = `CALL sp_updateActivity(?, ?, ?, ?);`;
+        await db.query(query1, [
+            data.activityID,
+            data.activityName,
+            data.activityType,
+            data.tripID,
+        ]);
+
+        console.log(`UPDATE activity. ID: ${data.activityID} Name: ${data.activityName}`);
+        res.redirect('/activities');
+    } catch (error) {
+        console.error('Cannot update activity:', error);
+        res.status(500).send('An error occured while executing the database queries.');
+    }
+});
 
 
 // ########################################

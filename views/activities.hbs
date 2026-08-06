@@ -20,12 +20,12 @@
                     <td>{{this.Activity}}</td>
                     <td>{{this.Type}}</td>
                     <td>{{this.Trip}}</td>
-                    <form id='delete_activity_form' method='POST' action='/activities/delete'>
-                        <input type='hidden' name='activityID' value='{{this.ID}}' />
-                        <input type='hidden' name='activityName' value='{{this.Activity}}' />
-                        <input type='hidden' name='activityType' value='{{this.Type}}' />
-                        <td><button type='submit'>Delete</button></td>
-                    </form>
+                    <td>
+                        <form method="POST" action="/activities/delete">
+                            <input type="hidden" name="activityID" value="{{this.ID}}" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>
@@ -35,51 +35,51 @@
     <div class="card-row">
         <div class="card">
             <h2>Create an Activity</h2>
-            <form class='cuForm' id='create_activity_form' method='POST' action='/activities/create'>
-                <label for='create_activity_name'>Activity Name: </label>
-                <input type='text' name='activityName' id='create_activity_name' required />
+            <form class="cuForm" method="POST" action="/activities/create">
+                <label for="activityName">Activity Name: </label>
+                <input type="text" name="activityName" id="activityName" required />
 
-                <label for='create_activity_type'>Activity Type: </label>
-                <input type='text' name='activityType' id='create_activity_type' />
+                <label for="activityType">Activity Type: </label>
+                <input type="text" name="activityType" id="activityType" />
 
-                <label for='create_activity_trip'>Trip: </label>
-                <select name='tripID' id='create_activity_trip' required>
-                    <option value='' disabled selected>Select a Trip</option>
+                <label for="tripID">Trip: </label>
+                <select name="tripID" id="tripID" required>
+                    <option value="" disabled selected>Select a Trip</option>
                     {{#each trips}}
-                    <option value='{{this.tripID}}'>Trip {{this.tripID}} - {{this.tripName}} </option>
+                    <option value="{{this.tripID}}">{{this.tripName}}</option>
                     {{/each}}
                 </select>
 
-                <input type='submit' />
+                <input type="submit" />
             </form>
         </div>
 
         <div class="card">
             <h2>Update an Activity</h2>
-            <form class='cuForm' id='update_activity_form'>
-                <label for='update_activity_id'>Activity to Update: </label>
-                <select name='update_activity_id' id='update_activity_id' required>
-                    <option value='' disabled selected>Select an Activity</option>
+            <form class="cuForm" method="POST" action="/activities/update">
+                <label for="update_activityID">Activity to Update: </label>
+                <select name="activityID" id="update_activityID" required>
+                    <option value="" disabled selected>Select an Activity</option>
                     {{#each activities}}
-                    <option value='{{this.activityID}}'>{{this.activityName}}</option>
+                    <option value="{{this.ID}}">{{this.Activity}}</option>
                     {{/each}}
                 </select>
 
-                <label for='update_activity_name'>Activity Name: </label>
-                <input type='text' name='update_activity_name' id='update_activity_name' />
+                <label for="update_activityName">Activity Name: </label>
+                <input type="text" name="activityName" id="update_activityName" required />
 
-                <label for='update_activity_type'>Activity Type: </label>
-                <input type='text' name='update_activity_type' id='update_activity_type' />
+                <label for="update_activityType">Activity Type: </label>
+                <input type="text" name="activityType" id="update_activityType" />
 
-                <label for='update_activity_trip'>Trip: </label>
-                <select name='update_activity_trip' id='update_activity_trip'>
-                    <option value='' disabled selected>Select a Trip</option>
+                <label for="update_tripID">Trip: </label>
+                <select name="tripID" id="update_tripID" required>
+                    <option value="" disabled selected>Select a Trip</option>
                     {{#each trips}}
-                    <option value='{{this.tripID}}'>Trip {{this.tripID}}</option>
+                    <option value="{{this.tripID}}">{{this.tripName}}</option>
                     {{/each}}
                 </select>
 
-                <input type='submit' />
+                <input type="submit" />
             </form>
         </div>
     </div>

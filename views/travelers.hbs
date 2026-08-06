@@ -19,12 +19,12 @@
                     <td>{{this.ID}}</td>
                     <td>{{this.Name}}</td>
                     <td>{{this.Email}}</td>
-                    <form id='delete_traveler_form' method='POST' action='/travelers/delete'>
-                        <input type='hidden' name='travelerID' value='{{this.ID}}' />
-                        <input type='hidden' name='username' value='{{this.Name}}' />
-                        <input type='hidden' name='email' value='{{this.Email}}' />
-                        <td><button type='submit'>Delete</button></td>
-                    </form>
+                    <td>
+                        <form method="POST" action="/travelers/delete">
+                            <input type="hidden" name="travelerID" value="{{this.ID}}" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>
@@ -34,35 +34,35 @@
     <div class="card-row">
         <div class="card">
             <h2>Create a Traveler</h2>
-            <form class='cuForm' id='create_traveler_form' method='POST' action='/travelers/create'>
-                <label for='create_traveler_username'>Username: </label>
-                <input type='text' name='username' id='create_traveler_username' required />
+            <form class="cuForm" method="POST" action="/travelers/create">
+                <label for="username">Username: </label>
+                <input type="text" name="username" id="username" required />
 
-                <label for='create_traveler_email'>Email: </label>
-                <input type='email' name='email' id='create_traveler_email' required />
+                <label for="email">Email: </label>
+                <input type="email" name="email" id="email" required />
 
-                <input type='submit' />
+                <input type="submit" />
             </form>
         </div>
 
         <div class="card">
             <h2>Update a Traveler</h2>
-            <form class='cuForm' id='update_traveler_form'>
-                <label for='update_traveler_id'>Traveler to Update: </label>
-                <select name='update_traveler_id' id='update_traveler_id' required>
-                    <option value='' disabled selected>Select a Traveler</option>
+            <form class="cuForm" method="POST" action="/travelers/update">
+                <label for="update_travelerID">Traveler to Update: </label>
+                <select name="travelerID" id="update_travelerID" required>
+                    <option value="" disabled selected>Select a Traveler</option>
                     {{#each travelers}}
-                    <option value='{{this.travelerID}}'>{{this.username}}</option>
+                    <option value="{{this.ID}}">{{this.Name}}</option>
                     {{/each}}
                 </select>
 
-                <label for='update_traveler_username'>Username: </label>
-                <input type='text' name='update_traveler_username' id='update_traveler_username' />
+                <label for="update_username">Username: </label>
+                <input type="text" name="username" id="update_username" required />
 
-                <label for='update_traveler_email'>Email: </label>
-                <input type='email' name='update_traveler_email' id='update_traveler_email' />
+                <label for="update_email">Email: </label>
+                <input type="email" name="email" id="update_email" required />
 
-                <input type='submit' />
+                <input type="submit" />
             </form>
         </div>
     </div>

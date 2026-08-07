@@ -2,6 +2,10 @@
     <h1>Locations</h1>
     <p class="page-subtitle">Browse destination countries supported by the app.</p>
 
+    {{#if error}}
+    <div class="error-banner">{{error}}</div>
+    {{/if}}
+
     <div class="card">
         <h2>Browse Locations</h2>
         <table>

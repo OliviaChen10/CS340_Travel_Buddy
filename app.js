@@ -1,4 +1,24 @@
 // ########################################
+// ############ Citations ############
+
+/*
+    Citation for creating webapp 
+    Date Accessed: 07/28/2026
+    Based on the directions/code from Oregon State CS340 Exploration - Web Application Technology.
+    Created UI pages using node.js instructions and started app.js based on instrcutions. 
+    Source URL: https://canvas.oregonstate.edu/courses/2051721/pages/exploration-web-application-technology-2?module_item_id=26923351
+*/
+
+/*
+    Citation for implementing CRUD operations
+    Date Accessed: 08/04/2026
+    Based on the directions/code from Oregon State CS340 Exploration - Implementing CUD operations in your app.
+    Wrote stored procedures and route handler code using node.js instructions.
+    Source URL: https://canvas.oregonstate.edu/courses/2051721/pages/exploration-implementing-cud-operations-in-your-app?module_item_id=26923368
+*/
+
+
+// ########################################
 // ########## SETUP
 
 // Express
@@ -52,7 +72,7 @@ app.get('/locations', async function (req, res) {
             SELECT locationID AS ID, countryName AS Country, continent AS Continent
             FROM Locations
         `);
-        res.render('locations', { locations: locations });
+        res.render('locations', { locations: locations, error: req.query.error });
     } catch (error) {
         console.error('Error rendering locations page:', error);
         res.status(500).send('An error occurred while rendering the page.');
@@ -121,7 +141,7 @@ app.get('/traveltypes', async function (req, res) {
             SELECT typeID AS ID, travelName AS Name
             FROM TravelTypes
         `);
-        res.render('traveltypes', { travelTypes: travelTypes });
+        res.render('traveltypes', { travelTypes: travelTypes, error: req.query.error });
     } catch (error) {
         console.error('Error rendering traveltypes page:', error);
         res.status(500).send('An error occurred while rendering the page.');
@@ -461,7 +481,7 @@ app.post('/traveltypes/delete', async function (req, res) {
         res.redirect('/traveltypes');
     } catch (error) {
         console.error('Error executing queries:', error);
-        res.status(500).send('An error occured while executing the database queries.')
+        res.redirect('/traveltypes?error=' + encodeURIComponent('This travel type cannot be deleted because it is used by one or more segments.'));
     }
 })
 
@@ -481,7 +501,7 @@ app.post('/locations/delete', async function (req, res) {
         res.redirect('/locations');
     } catch (error) {
         console.error('Error executing queries:', error);
-        res.status(500).send('An error occured while executing the database queries.')
+        res.redirect('/locations?error=' + encodeURIComponent('This location cannot be deleted because it is used by one or more trips.'));
     }
 })
 
@@ -504,6 +524,21 @@ app.post('/activities/delete', async function (req, res) {
         res.status(500).send('An error occured while executing the database queries.')
     }
 })
+
+// ########################################
+// ############## RESET ################
+
+app.post('/reset', async function (req, res) {
+    try {
+        await db.query('CALL sp_resetDatabase();');
+        console.log('DATABASE RESET: all tables dropped, recreated, and reseeded.');
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error resetting database:', error);
+        res.status(500).send('An error occurred while resetting the database.');
+    }
+});
+
 
 // ########################################
 // ############## LISTENER ################

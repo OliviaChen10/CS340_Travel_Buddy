@@ -1,6 +1,9 @@
-<div class="homepage-intro">
+<div class="page">
     <h1>Travel Buddy</h1>
-    <h2>A database-driven application to track and plan all your vacations!</h2> 
+
+    <form method="POST" action="/reset" onsubmit="return confirm('This will erase all current data and reset the database to sample data. Are you sure?');">
+        <button type="submit" class="reset-button">Reset Database</button>
+    </form>
 </div>
 
 <div class="homepage-about">

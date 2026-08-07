@@ -2,6 +2,10 @@
     <h1>Travel Types</h1>
     <p class="page-subtitle">Browse and manage the modes of transportation available.</p>
 
+    {{#if error}}
+    <div class="error-banner">{{error}}</div>
+    {{/if}}
+    
     <div class="card">
         <h2>Browse Travel Types</h2>
         <table>

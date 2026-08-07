@@ -1,6 +1,20 @@
 /* body {background-color: #436054;} */
 body {
+    /*
+    Citation for how to make image a background 
+    Date Accessed: 07/30/2026
+    Based on information found at
+    Source URL: https://www.w3schools.com/cssref/pr_background-image.php
+    */
     background-image: url("homepage-bkg.jpg");
+    /*
+    Citation for background image
+    Date Accessed: 07/30/2026
+    Photo found at
+    Source URL:  https://unsplash.com/photos/a-blue-sky-with-clouds-ioK2PXHV91k 
+    Photograph: a blue sky with clouds 
+    Photograph by: Enrico Fumagalli on Unsplash
+    */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -230,4 +244,26 @@ table form {
 .cuForm input[type='submit'] {
     align-self: flex-start;
     margin-top: 6px;
+}
+
+.error-banner {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #b91c1c;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.reset-button {
+    background: #fff;
+    color: #b91c1c;
+    border: 1.5px solid #b91c1c;
+    font-weight: 700;
+}
+
+.reset-button:hover {
+    background: #b91c1c;
+    color: #fff;
 }

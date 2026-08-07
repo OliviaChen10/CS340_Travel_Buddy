@@ -8,7 +8,7 @@
 --   Activities) with sample data as shown in the project report.
 -- ============================================================
  
-DROP PROCEDURE IF EXISTS sp_loadDatabase;
+DROP PROCEDURE IF EXISTS sp_resetDatabase;
 
 DELIMITER //
 CREATE PROCEDURE sp_resetDatabase()

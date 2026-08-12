@@ -27,3 +27,8 @@ URL: https://canvas.oregonstate.edu/courses/2051721/pages/exploration-web-applic
 Date retrieved: 8/4/26
 Based on the directions/code from Oregon State CS340 Exploration - Implementing CUD operations in your app. Wrote stored procedures and route handler code using node.js instructions.
 URL: https://canvas.oregonstate.edu/courses/2051721/pages/exploration-implementing-cud-operations-in-your-app?module_item_id=26923368
+
+## Citation for Duplicate Error message
+Date retrieved: 8/12/26
+Based on the code provided by Stack Overflow user Sizwe Ntanzi, using if statement to catch an error code.
+URL: https://stackoverflow.com/questions/42766446/how-to-handle-error-er-dup-entry-duplicate-entry-in-nodejs 

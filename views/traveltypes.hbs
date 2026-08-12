@@ -2,12 +2,16 @@
     <h1>Travel Types</h1>
     <p class="page-subtitle">Browse and manage the modes of transportation available.</p>
 
+    {{!-- Banner popup when error occurs --}}
     {{#if error}}
     <div class="error-banner">{{error}}</div>
     {{/if}}
     
     <div class="card">
         <h2>Browse Travel Types</h2>
+
+        {{!-- Check for empty table --}}
+        {{#if travelTypes.length}}
         <table>
             <thead>
                 <tr>
@@ -25,13 +29,19 @@
                     <td>
                         <form method="POST" action="/traveltypes/delete">
                             <input type="hidden" name="typeID" value="{{this.ID}}" />
-                            <button type="submit">Delete</button>
+                            <input type="hidden" name="travelName" value="{{this.Name}}" />
+                            <button type="submit" onclick="return confirm('Are you sure you wish to delete this travel type?');">
+                                Delete</button>
                         </form>
                     </td>
                 </tr>
                 {{/each}}
             </tbody>
         </table>
+        {{!-- Table is empty --}}
+        {{else}}
+            <p>No travel types found.</p>
+        {{/if}}
     </div>
 
     <div class="card-row">

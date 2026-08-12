@@ -8,6 +8,9 @@
 
     <div class="card">
         <h2>Browse Travelers</h2>
+
+        {{!-- Check for empty table --}}
+        {{#if travelers.length}}
         <table>
             <thead>
                 <tr>
@@ -26,13 +29,21 @@
                     <td>
                         <form method="POST" action="/travelers/delete">
                             <input type="hidden" name="travelerID" value="{{this.ID}}" />
-                            <button type="submit">Delete</button>
+                            <input type="hidden" name="username" value="{{this.Name}}" />
+                            <input type="hidden" name="email" value="{{this.Email}}" />
+                            <button type="submit" 
+                                onclick="return confirm('Are you sure you wish to delete this traveler? This will delete their associated trips.');">
+                                Delete</button>
                         </form>
                     </td>
                 </tr>
                 {{/each}}
             </tbody>
         </table>
+        {{!-- Table is empty --}}
+        {{else}}
+            <p>No travelers found.</p>
+        {{/if}}
     </div>
 
     <div class="card-row">
@@ -85,3 +96,4 @@
         document.getElementById('update_email').value = traveler.Email;
     });
 </script>
+

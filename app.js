@@ -17,6 +17,12 @@
     Source URL: https://canvas.oregonstate.edu/courses/2051721/pages/exploration-implementing-cud-operations-in-your-app?module_item_id=26923368
 */
 
+/*
+## Citation for Duplicate Error message
+Date retrieved: 8/12/26
+Based on the code provided by Stack Overflow user Sizwe Ntanzi, using if statement to catch an error code.
+URL: https://stackoverflow.com/questions/42766446/how-to-handle-error-er-dup-entry-duplicate-entry-in-nodejs 
+*/
 
 // ########################################
 // ########## SETUP
@@ -64,9 +70,10 @@ app.get('/travelers', async function (req, res) {
     try {
         const [travelers] = await db.query(`
             SELECT travelerID AS ID, username AS Name, email AS Email
-            FROM Travelers;
+            FROM Travelers
+            ORDER BY travelerID ASC;
         `);
-        res.render('travelers', { travelers: travelers });
+        res.render('travelers', { travelers: travelers, error: req.query.error });
     } catch (error) {
         console.error('Error rendering travelers page:', error);
         res.status(500).send('An error occurred while rendering the page.');
@@ -78,6 +85,7 @@ app.get('/locations', async function (req, res) {
         const [locations] = await db.query(`
             SELECT locationID AS ID, countryName AS Country, continent AS Continent
             FROM Locations
+            ORDER BY locationID ASC;
         `);
         res.render('locations', { locations: locations, error: req.query.error });
     } catch (error) {
@@ -93,11 +101,12 @@ app.get('/trips', async function (req, res) {
             Trips.endDate AS End, Travelers.username AS Traveler, Locations.countryName as Location
             FROM Trips
             JOIN Travelers ON Trips.travelerID = Travelers.travelerID
-            JOIN Locations ON Trips.locationID = Locations.locationID;
+            JOIN Locations ON Trips.locationID = Locations.locationID
+            ORDER BY Trips.tripID ASC;
         `);
         const [travelers] = await db.query(`SELECT * FROM Travelers;`);
         const [locations] = await db.query(`SELECT * FROM Locations;`);
-        res.render('trips', { trips: trips, travelers: travelers, locations: locations });
+        res.render('trips', { trips: trips, travelers: travelers, locations: locations, error: req.query.error });
     } catch (error) {
         console.error('Error rendering trips page:', error);
         res.status(500).send('An error occurred while rendering the page.');
@@ -115,7 +124,8 @@ app.get('/segments', async function (req, res) {
                 Trips.tripName as Trip
             FROM Segments
             JOIN TravelTypes ON Segments.typeID = TravelTypes.typeID
-            JOIN Trips ON Segments.tripID = Trips.tripID;
+            JOIN Trips ON Segments.tripID = Trips.tripID
+            ORDER BY Segments.segmentID ASC;
             `);
         const [trips] = await db.query('SELECT * FROM Trips;');
         const [travelTypes] = await db.query('SELECT * FROM TravelTypes;');
@@ -132,7 +142,8 @@ app.get('/activities', async function (req, res) {
             SELECT Activities.activityID AS ID, Activities.activityName as Activity, 
             Activities.activityType as Type, Trips.tripName as Trip
             FROM Activities
-            JOIN Trips ON Activities.tripID = Trips.tripID;
+            JOIN Trips ON Activities.tripID = Trips.tripID
+            ORDER BY Activities.activityID ASC;
         `);
         const [trips] = await db.query('SELECT * FROM Trips;');
         res.render('activities', { activities: activities, trips: trips });
@@ -147,6 +158,7 @@ app.get('/traveltypes', async function (req, res) {
         const [travelTypes] = await db.query(`
             SELECT typeID AS ID, travelName AS Name
             FROM TravelTypes
+            ORDER BY typeID ASC;
         `);
         res.render('traveltypes', { travelTypes: travelTypes, error: req.query.error });
     } catch (error) {
@@ -177,6 +189,11 @@ app.post('/travelers/create', async function (req, res) {
         res.redirect('/travelers');
     } catch (error) {
         console.error('Cannot create new user:', error);
+
+        // Duplicate Traveler
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.redirect('/travelers?error=No duplicate username or emails allowed.');
+        }
         res.status(500).send('An error occured while executing the database queries.');
     }
 });
@@ -203,6 +220,11 @@ app.post('/trips/create', async function (req, res) {
         res.redirect('/trips');
     } catch (error) {
         console.error('Cannot create new trip:', error);
+        
+        // Duplicate Trip
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.redirect('/trips?error=This trip already exists!');
+        }
         res.status(500).send('An error occured while executing the database queries.');
     }
 });
@@ -252,6 +274,12 @@ app.post('/traveltypes/create', async function (req, res) {
         res.redirect('/traveltypes');
     } catch (error) {
         console.error('Cannot create new travel type:', error);
+
+        // Duplicate Travel Type
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.redirect('/traveltypes?error=This mode of travel already exists!');
+        }
+
         res.status(500).send('An error occured while executing the database queries.');
     }
 });
@@ -274,6 +302,12 @@ app.post('/locations/create', async function (req, res) {
         res.redirect('/locations');
     } catch (error) {
         console.error('Cannot create new locations:', error);
+
+        // Duplicate Location
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.redirect('/locations?error=This location already exists!');
+        }
+
         res.status(500).send('An error occured while executing the database queries.');
     }
 });
@@ -461,7 +495,7 @@ app.post('/segments/delete', async function (req, res) {
         await db.query(query1, [data.segmentID]);
 
         console.log(`DELETE trip. ID: ${data.segmentID}` +
-            ` Departure: ${data.segmentID} ${data.departureLocation} Arrival: ${data.arrivalLocation}`
+            ` Departure: ${data.departureLocation} Arrival: ${data.arrivalLocation}`
         );
 
         // Redirect user to updated page
@@ -520,7 +554,7 @@ app.post('/activities/delete', async function (req, res) {
         const query1 = `CALL sp_deleteActivity(?);`;
         await db.query(query1, [data.activityID]);
 
-        console.log(`DELETE traveler. ID: ${data.activityID}` +
+        console.log(`DELETE activity. ID: ${data.activityID}` +
             ` Name: ${data.activityName} - ${data.activityType}`
         );
 

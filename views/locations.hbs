@@ -71,3 +71,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    const locationsData = {{{json locations}}};
+
+    document.getElementById('update_locationID').addEventListener('change', function () {
+        const location = locationsData.find(l => String(l.ID) === this.value);
+        if (!location) return;
+        document.getElementById('update_countryName').value = location.Country;
+        document.getElementById('update_continent').value = location.Continent;
+    });
+</script>

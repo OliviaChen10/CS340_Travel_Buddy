@@ -115,3 +115,26 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    const segmentsData = {{{json segments}}};
+
+    document.getElementById('update_segmentID').addEventListener('change', function () {
+        const segment = segmentsData.find(s => String(s.ID) === this.value);
+        if (!segment) return;
+        document.getElementById('update_departureLocation').value = segment.Departure;
+        document.getElementById('update_departureTime').value = segment.DepartureTime.replace(' ', 'T').slice(0, 16);
+        document.getElementById('update_arrivalLocation').value = segment.Arrival;
+        document.getElementById('update_arrivalTime').value = segment.ArrivalTime.replace(' ', 'T').slice(0, 16);
+
+        const typeSelect = document.getElementById('update_typeID');
+        for (const opt of typeSelect.options) {
+            if (opt.textContent === segment.Via) opt.selected = true;
+        }
+        const tripSelect = document.getElementById('update_tripID');
+        for (const opt of tripSelect.options) {
+            if (opt.textContent === segment.Trip) opt.selected = true;
+        }
+    });
+</script>

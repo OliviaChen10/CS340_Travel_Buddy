@@ -2,6 +2,10 @@
     <h1>Travelers</h1>
     <p class="page-subtitle">Browse travelers and manage their accounts.</p>
 
+    {{#if error}}
+    <div class="error-banner">{{error}}</div>
+    {{/if}}
+
     <div class="card">
         <h2>Browse Travelers</h2>
         <table>
@@ -67,3 +71,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Embed the travelers data so JS can look up a row by ID without another server call
+    const travelersData = {{{json travelers}}};
+
+    document.getElementById('update_travelerID').addEventListener('change', function () {
+        const selectedID = this.value;
+        const traveler = travelersData.find(t => String(t.ID) === selectedID);
+        if (!traveler) return;
+
+        document.getElementById('update_username').value = traveler.Name;
+        document.getElementById('update_email').value = traveler.Email;
+    });
+</script>

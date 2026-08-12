@@ -109,5 +109,24 @@
     </div>
 </div>
 
+<script>
+    const tripsData = {{{json trips}}};
 
+    document.getElementById('update_tripID').addEventListener('change', function () {
+        const trip = tripsData.find(t => String(t.ID) === this.value);
+        if (!trip) return;
+        document.getElementById('update_tripName').value = trip.Name;
+        document.getElementById('update_startDate').value = trip.Start.slice(0, 10);
+        document.getElementById('update_endDate').value = trip.End.slice(0, 10);
+        // Traveler/Location dropdowns need matching by name since 'trips' only has readable names, not IDs
+        const travelerSelect = document.getElementById('update_travelerID');
+        for (const opt of travelerSelect.options) {
+            if (opt.textContent === trip.Traveler) opt.selected = true;
+        }
+        const locationSelect = document.getElementById('update_locationID');
+        for (const opt of locationSelect.options) {
+            if (opt.textContent === trip.Location) opt.selected = true;
+        }
+    });
+</script>
 

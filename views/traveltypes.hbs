@@ -64,3 +64,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    const travelTypesData = {{{json travelTypes}}};
+
+    document.getElementById('update_typeID').addEventListener('change', function () {
+        const type = travelTypesData.find(t => String(t.ID) === this.value);
+        if (!type) return;
+        document.getElementById('update_travelName').value = type.Name;
+    });
+</script>

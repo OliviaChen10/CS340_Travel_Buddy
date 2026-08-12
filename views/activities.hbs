@@ -84,3 +84,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    const activitiesData = {{{json activities}}};
+
+    document.getElementById('update_activityID').addEventListener('change', function () {
+        const activity = activitiesData.find(a => String(a.ID) === this.value);
+        if (!activity) return;
+        document.getElementById('update_activityName').value = activity.Activity;
+        document.getElementById('update_activityType').value = activity.Type;
+
+        const tripSelect = document.getElementById('update_tripID');
+        for (const opt of tripSelect.options) {
+            if (opt.textContent === activity.Trip) opt.selected = true;
+        }
+    });
+</script>

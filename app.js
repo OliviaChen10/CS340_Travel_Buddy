@@ -35,7 +35,14 @@ const db = require('./database/db-connector');
 
 // Handlebars
 const { engine } = require('express-handlebars'); // Import express-handlebars engine
-app.engine('.hbs', engine({ extname: '.hbs' })); // Create instance of handlebars
+app.engine('.hbs', engine({
+    extname: '.hbs',
+    helpers: {
+        json: function (context) {
+            return JSON.stringify(context);
+        }
+    }
+})); // Create instance of handlebars, with a custom 'json' helper for embedding data as JSON in scripts
 app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files.
 
 // ########################################

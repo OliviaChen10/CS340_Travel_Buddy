@@ -1,4 +1,3 @@
-
 -- ============================================================
 -- CS340 Project - DDL.sql
 -- Team members: Hailey Mendenhall, Olivia Chen

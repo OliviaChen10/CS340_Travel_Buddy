@@ -1,4 +1,3 @@
-
 -- #############################
 -- RESET to all sample data in our DDL.sql
 -- #############################
@@ -48,7 +47,7 @@ BEGIN
     CREATE TABLE TravelTypes (
         typeID INT NOT NULL AUTO_INCREMENT,
         travelName VARCHAR(50) NOT NULL UNIQUE,
-        PRIMARY KEY (typeID)
+        PRIMARY KEY (typeID),
     );
 
     -- ------------------------------------------------------------

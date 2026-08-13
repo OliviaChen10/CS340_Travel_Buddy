@@ -32,3 +32,8 @@ URL: https://canvas.oregonstate.edu/courses/2051721/pages/exploration-implementi
 Date retrieved: 8/12/26
 Based on the code provided by Stack Overflow user Sizwe Ntanzi, using if statement to catch an error code.
 URL: https://stackoverflow.com/questions/42766446/how-to-handle-error-er-dup-entry-duplicate-entry-in-nodejs 
+
+## Citation for empty table
+Date retrieved: 8/12/26
+Based on the code provided by Stack Overflow user Duane. Used if table.length code to track table length.
+URL: https://stackoverflow.com/questions/10381827/handlerbars-js-check-if-list-is-empty

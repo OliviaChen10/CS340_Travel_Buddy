@@ -18,10 +18,10 @@
 */
 
 /*
-## Citation for Duplicate Error message
-Date retrieved: 8/12/26
-Based on the code provided by Stack Overflow user Sizwe Ntanzi, using if statement to catch an error code.
-URL: https://stackoverflow.com/questions/42766446/how-to-handle-error-er-dup-entry-duplicate-entry-in-nodejs 
+    Citation for Duplicate Error message
+    Date retrieved: 8/12/26
+    Based on the code provided by Stack Overflow user Sizwe Ntanzi, using if statement to catch an error code.
+    URL: https://stackoverflow.com/questions/42766446/how-to-handle-error-er-dup-entry-duplicate-entry-in-nodejs 
 */
 
 // ########################################

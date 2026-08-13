@@ -51,8 +51,9 @@ BEGIN
     -- ------------------------------------------------------------
     CREATE TABLE TravelTypes (
         typeID INT NOT NULL AUTO_INCREMENT,
-        travelName VARCHAR(50) NOT NULL UNIQUE,
+        travelName VARCHAR(50) NOT NULL,
         PRIMARY KEY (typeID),
+        CONSTRAINT uq_traveltype_name UNIQUE (travelName)
     );
 
     -- ------------------------------------------------------------

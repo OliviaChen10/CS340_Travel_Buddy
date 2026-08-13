@@ -56,8 +56,9 @@ CREATE TABLE Locations (
 -- ------------------------------------------------------------
 CREATE TABLE TravelTypes (
     typeID INT NOT NULL AUTO_INCREMENT,
-    travelName VARCHAR(50) NOT NULL UNIQUE,
-    PRIMARY KEY (typeID)
+    travelName VARCHAR(50) NOT NULL,
+    PRIMARY KEY (typeID),
+    CONSTRAINT uq_traveltype_name UNIQUE (travelName)
 );
  
 -- ------------------------------------------------------------
